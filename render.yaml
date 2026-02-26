@@ -1,20 +1,23 @@
 # Render Blueprint - TaskMaster Telegram Bot
-# Deploy as Background Worker (long-running process)
 # https://docs.render.com/blueprint-spec
+# Deploy: connect repo → New Blueprint Instance → set BOT_TOKEN in Environment → Deploy
 
 services:
   - type: worker
     name: taskmaster-bot
     runtime: python
+
     buildCommand: pip install -r requirements.txt
     startCommand: python bot.py
+
     disk:
       name: taskmaster-data
       mountPath: /opt/render/project/src/data
       sizeGB: 1
+
     envVars:
       - key: BOT_TOKEN
-        sync: false  # Set manually in Render Dashboard (Settings > Environment)
+        sync: false
       - key: DATABASE_PATH
         value: /opt/render/project/src/data/tasks.db
       - key: PYTHON_VERSION

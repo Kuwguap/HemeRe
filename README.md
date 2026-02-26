@@ -36,17 +36,20 @@ A streamlined, cross-platform task manager built for Telegram. Manage your to-do
    python bot.py
    ```
 
-## ☁️ Deploy on Render
+## ☁️ Deploy on Render (Blueprint)
 
 1. Push this repo to GitHub.
-2. In [Render Dashboard](https://dashboard.render.com/), create a **Background Worker**.
-3. Connect your repo — Render will detect `render.yaml`.
-4. Set `BOT_TOKEN` in Environment (Settings → Environment).
-5. Deploy. The worker runs 24/7 with persistent disk for SQLite.
+2. In [Render Dashboard](https://dashboard.render.com/): **New +** → **Blueprint** → select this repo.
+3. Click **Apply** so Render creates the worker and its persistent disk from `render.yaml`.
+4. Open the **taskmaster-bot** service → **Environment** → set **BOT_TOKEN** (paste your Telegram bot token).
+5. Save; Render redeploys. Check **Logs** for `Starting polling...`.
 
-The `render.yaml` defines a worker with:
-- Persistent disk (`/opt/render/project/src/data`) for task storage
-- APScheduler running reminder checks every minute
+The Blueprint (`render.yaml`) defines:
+- **Background Worker** (Python 3.11), build: `pip install -r requirements.txt`, start: `python bot.py`
+- **1 GB persistent disk** at `data/` so SQLite tasks survive deploys
+- **BOT_TOKEN** must be set by you in the service Environment
+
+Full steps: [DEPLOY.md](DEPLOY.md#deploy-on-render-with-blueprint).
 
 ## 📋 Commands
 
