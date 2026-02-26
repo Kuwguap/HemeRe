@@ -31,6 +31,9 @@ def get_connection() -> sqlite3.Connection:
     DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(str(DATABASE_PATH))
     conn.row_factory = sqlite3.Row
+    # Durability: WAL mode + full sync so data persists across restarts
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA synchronous=FULL")
     return conn
 
 

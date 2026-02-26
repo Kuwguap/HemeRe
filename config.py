@@ -7,7 +7,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN", "")
-DATABASE_PATH = Path(os.getenv("DATABASE_PATH", "./data/tasks.db"))
+
+# Use persistent disk path on Render (env may not be set if Blueprint wasn't applied)
+_raw_db = os.getenv("DATABASE_PATH")
+if not _raw_db and os.getenv("RENDER"):
+    _raw_db = "/opt/render/project/src/data/tasks.db"
+if not _raw_db:
+    _raw_db = "./data/tasks.db"
+DATABASE_PATH = Path(_raw_db).resolve()
 
 if not BOT_TOKEN:
     raise ValueError(

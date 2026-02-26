@@ -8,7 +8,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.types import BotCommand
 
-from config import BOT_TOKEN, ensure_data_dir
+from config import BOT_TOKEN, DATABASE_PATH, ensure_data_dir
 from database import init_db
 from handlers import router
 from scheduler import init_scheduler
@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 async def main() -> None:
     """Start the bot."""
     ensure_data_dir()
+    logger.info("Database: %s", str(DATABASE_PATH))
     init_db()
     bot = Bot(
         token=BOT_TOKEN,

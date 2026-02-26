@@ -85,10 +85,10 @@ This repo includes a **Render Blueprint** (`render.yaml`). One Blueprint creates
 | Runtime        | Python                                    |
 | Build          | `pip install -r requirements.txt`         |
 | Start          | `python bot.py`                           |
-| Disk           | 1 GB at `/opt/render/project/src/data`    |
+| Disk           | 1 GB at `/opt/render/project/src/data` (required—tasks persist here) |
 | DATABASE_PATH  | Set to disk path (tasks persist)           |
 | BOT_TOKEN      | You must set this in Environment          |
-| PYTHON_VERSION | 3.11                                      |
+| PYTHON_VERSION | 3.11.9 (required: full major.minor.patch) |
 
 ---
 
